@@ -1,0 +1,50 @@
+#include <iostream>
+#include <ctime>
+#include <wchar.h>
+#include <Windows.h>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <string.h>
+#include <stdlib.h>
+#include <cstring>
+#include <conio.h>
+#include <iomanip>
+#include <process.h>
+#include <ctime>
+#include <cstdlib>
+#include <typeinfo>
+#include <fstream>
+
+
+
+using namespace std;
+const int MAX = 100;
+int buff[MAX];
+
+int main()
+{
+    for (int j = 0; j < MAX; j++)
+        buff[j] = j;
+    ofstream os("edata.dat", ios::binary);
+
+    os.write(reinterpret_cast<char*>(buff), MAX * sizeof(int));
+    os.close();
+
+    for (int j = 0; j < MAX; j++)
+        buff[j] = 0;
+
+    ifstream is("edata.dat", ios::binary);
+
+    is.read(reinterpret_cast<char*>(buff), MAX * sizeof(int));
+
+    for(int j = 0; j < MAX; j++)
+        if (buff[j] != j) {
+            cerr << "Incorrect data!\n";
+            return 1;
+        }
+    cout << "The data is correct\n";
+            
+
+    return 0;
+}
